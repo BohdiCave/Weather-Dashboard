@@ -9,8 +9,12 @@ h1 {
     font-weight: bold;
 }
 
+.container {
+    margin: 0;
+}
+
 .container .row {
-    justify-content: center;
+    justify-content: flex-start;
     padding: 30px;
 }
 /* 
