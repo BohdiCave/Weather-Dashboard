@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+    <link rel="stylesheet" type="text/css" href="./assets/style.css">
+</head>
+
+<body>
+    <header class="row">
+        <h1>Weather Dashboard</h1>
+    </header>
+    <main class="container">
+        <div class="row">
+            <section class="column column-20">
+                <form>
+                    <label for="city-search">Search for a City</label>
+                    <input id="city-search" placeholder="Lviv, Ukraine" value="Lviv, Ukraine">
+                </form>
+            </section>
+            <section class="column column-60">
+                <div class="row" id="cityInfo">
+                    <h2 id="cityName">City Information</h2>
+                </div>
+                <div class="row" id="forecast">
+                    <h2>5-Day Forecast</h2>
+                </div>                
+            </section>
+        </div>
+    </main>
+    <footer class="row">
+        <p>2020 - Made with love by <a href="https://github.com/BohdiCave/Weather-Dashboard">The Disregulated Misfit</a></p>
+    </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var cityName = $("#city-search").val();
+        var cityInfo = $("#cityInfo");
+        var cityName = $("#cityName");
+        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=f0f4d87763aa343a55935871e0d71f65";
+        $.ajax(url = queryURL, method = "GET").then(function(response) {
+            console.log(response);
+            var name = response.name;
+            cityName = name;
+
+        });
+    }); 
+</script>
+</body>
+</html>

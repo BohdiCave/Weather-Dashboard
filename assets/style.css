@@ -1,0 +1,30 @@
+header.row {
+    background-color: mediumseagreen;
+    justify-content: center;
+    padding-top: 15px;
+    color: white;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+.container .row {
+    justify-content: center;
+    padding: 30px;
+}
+/* 
+.row #cityInfo, 
+.row #forecast {
+    border-width: 2px;
+    border-color: gray;
+} */
+
+
+footer.row {
+    justify-content: center;
+}
+
+p {
+    font-weight: bold;
+}
