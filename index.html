@@ -12,45 +12,71 @@
 </head>
 
 <body>
-    <header class="row">
-        <h1>Weather Dashboard</h1>
+    <header>
+        <div class="row" id="head-row">
+            <div class="column">
+                <div class="row" id="title-date">
+                    <div class="column column-60" id="pg-title"><h1>Weather Dashboard - </h1></div>
+                    <div class="column" id="pg-date"><h2 id="todayDate"></h2></div>
+                </div>
+            </div>        
+            <div class="column">
+                <div class="row" id="all-search">
+                    <form class="column column-20" id="pg-search">
+                        <label for="city-search" id="label-search">Search for a City</label>
+                        <input type="text" id="city-search" placeholder="Lviv, Ukraine" value="Lviv, Ukraine">
+                        <input type="submit" id="search-button" class="button button-outline" value="Search">
+                    </form>
+                    <div class="column" id="searched"></div>
+                </div>
+            </div>
+        </div>
     </header>
     <main class="container">
-        <div class="row">
-            <section class="column column-20">
-                <form>
-                    <label for="city-search">Search for a City</label>
-                    <input id="city-search" placeholder="Lviv, Ukraine" value="Lviv, Ukraine">
-                </form>
+        <div class="row" id="main-row">
+            <section class="column column-40" id="sec1">
+                <figure>
+                    <img id="rose-of-winds" src="./assets/wind-rose.jpg" alt="compass rose">
+                <figcaption>Image credit: <a href="https://radar24.pl/en/wind-direction/">Radar24</a></figcaption>
+                </figure>
             </section>
-            <section class="column column-60">
-                <div class="row" id="cityInfo">
-                    <h2 id="cityName">City Information</h2>
+            <section class="column" id="sec2">
+                <div class="row">
+                    <div class="column"> 
+                        <div class="row title-row">
+                            <h2 id="cityName-1"></h2>
+                            <img id="weatherIcon-1">
+                        </div>
+                        <div id="cityInfo-1">
+                        </div>
+                    </div>
+                    <div class="column" id="cityInfo-2">
+                        <div class="row title-row">
+                            <h2 id="cityName-2"></h2>
+                            <img id="weatherIcon-2">
+                        </div>
+                    </div>
                 </div>
-                <div class="row" id="forecast">
-                    <h2>5-Day Forecast</h2>
-                </div>                
+                <div id="forecast">
+                    <div class="row" id="forecast-title">
+                        <h2>5-Day, 3-Hour Forecast for<span id="forecast-city"></span></h2>
+                    </div>
+                    <div class="row" id="five-days">
+                    </div>
+                    <div class="row" id="local-forecast-title">
+                        <h2>Forecast for Philadelphia</h2>
+                    </div>
+                    <div class="row" id="five-days-2">
+                    </div>
+                </div>               
             </section>
         </div>
     </main>
     <footer class="row">
-        <p>2020 - Made with love by <a href="https://github.com/BohdiCave/Weather-Dashboard">The Disregulated Misfit</a></p>
+        <p>2020 - Made with love by <a id="misfit" href="https://bohdicave.github.io/">The Dysregulated Misfit</a></p>
     </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-        var cityName = $("#city-search").val();
-        var cityInfo = $("#cityInfo");
-        var cityName = $("#cityName");
-        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=f0f4d87763aa343a55935871e0d71f65";
-        $.ajax(url = queryURL, method = "GET").then(function(response) {
-            console.log(response);
-            var name = response.name;
-            cityName = name;
-
-        });
-    }); 
-</script>
+<script src="./assets/script.js"></script>
 </body>
 </html>
