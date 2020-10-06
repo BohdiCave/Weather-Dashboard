@@ -172,9 +172,6 @@ footer.row {
     padding: 15px;
 }
 
-#misfit {
+#misfit, #milligram, #openweathermap {
     text-shadow: mediumseagreen 1px 1px 1px;
 }
-
-
-
