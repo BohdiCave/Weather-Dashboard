@@ -4,9 +4,10 @@ body {
 }
 h1, h2 {
     font-weight: bold;
+    margin-bottom:0;
 }
 
-h1, h2, h3 {
+h3 {
     margin-bottom: 0;
 }
 
@@ -57,7 +58,7 @@ img {
     flex-direction: row;
 }
 
-#pg-search, #searched {
+#pg-search, #searched, #mobile-search {
     padding-left: 30px;
     padding-top: 10px;
     background-color: rgb(104, 70, 43);
@@ -95,11 +96,13 @@ form {
 #city-searched {
     color: mediumseagreen;
     border: 0;
+    text-shadow: black 1px 1px 1px;
 }
 
 /* Main content */
 
 .container {
+    display: flex;
     margin: 20px 20px 0px;
     padding: 0px;
 }
@@ -107,11 +110,20 @@ form {
 .container #main-row {
     flex-direction: row;
     justify-content: space-around;
+    flex-grow: 1;
 }
 
-/* Section 1 */
+#sec1 {
+    flex:1 0 40%;
+}
+
+#sec2 {
+    flex: 0 1 30%;
+}
+
 figcaption {
     text-align: center;
+    padding-bottom: 5px;
 }
 
 figure {
@@ -119,7 +131,7 @@ figure {
     margin: 0;
 }
 
-/* Section 2 */
+/* Section 1 */
 .title-row,
 #forecast-title,
 #local-forecast-title {
@@ -127,13 +139,17 @@ figure {
     align-items: center;
 }
 
+#cityName-1 {
+    flex: 0 1 auto;
+}
+
 #weatherIcon-1, #weatherIcon-2 {
-    margin-left: 10px;
     border-radius: 10px;
 }
 
 #weatherIcon-1 {
     background-color: mediumseagreen;
+    flex: 1 0 auto;
 }
 
 #weatherIcon-2 {
@@ -141,11 +157,14 @@ figure {
 }
 
 #ultraViolet, #localUV {
-    background-color: crimson;
     color: white;
     border-radius: 5px;
     padding-left: 5px;
     width: 40%;
+}
+
+#forecast {
+    width: 80%;
 }
 
 .column .each-day-1, 
@@ -166,12 +185,39 @@ figure {
     background-color: rgb(160, 109, 67);
 }
 
+#humidity-charts {
+    padding-top: 50px;
+}
+
 /* Footer */
 footer.row {
     justify-content: center;
     padding: 15px;
 }
 
+footer p {
+    text-align: center;
+}
+
 #misfit, #milligram, #openweathermap {
     text-shadow: mediumseagreen 1px 1px 1px;
+}
+
+@media (max-width: 665px) {
+    h1 {font-size: 28px; text-align: left; padding-left: 10px;}
+    h2 {font-size: 24px; padding-bottom: 5px;}
+    #todayDate {padding-left: 10px;}
+    #all-search{flex-direction: column;}
+    #city-search{width: 80%;}
+    .container #main-row {flex-direction: column;}
+    #cityInfo-1{padding-bottom: 15px;}
+    #forecast {width: 80%;}
+    #heat-index-chart-F{width: 90%;}  
+    #heatChart-2{text-align: center;}
+}
+
+@media (max-width: 900px) {
+    .container #main-row {flex-direction:column;}
+    #forecast {width:70%}
+
 }

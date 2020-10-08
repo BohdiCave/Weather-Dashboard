@@ -13,6 +13,9 @@ var input = "";
 var weatherURL = "";
 var forecastURL = "";
 var arrSearched = [];
+var indexUV = $("<p>");
+var indexUV2 = $("<p>");
+var UVcolor1, UVcolor2, UVI, UVI2;
 
 // AJAX request for the current local weather in Philadelphia (to remain static after request)  
 var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=Philadelphia,PA,USA&units=imperial&appid=f0f4d87763aa343a55935871e0d71f65";
@@ -20,12 +23,9 @@ $.ajax(url = queryURL, method = "GET").then(function(local) {
     //getting the city name to display
     var localName = local.name;
     cityName2.text(localName + ", PA");
-    //creating the array for storing searched cities
-    var arrName = [localName];
-    localStorage.setItem("Searched Cities", JSON.stringify(arrName));
     //getting the current date
     var date = new Date(local.dt * 1000); 
-    todayDate.text((date.getMonth()+1) + "/" + date.getDate() + "/" + date.getFullYear());
+    todayDate.append((date.getMonth()+1) + "/" + date.getDate() + "/" + date.getFullYear());
     //getting the correct weather icon based on the API docs and the JSON data
     var iconURL2 = "http://openweathermap.org/img/wn/" + local.weather[0].icon + ".png";
     weatherIcon2.attr("src", iconURL2);
@@ -47,10 +47,18 @@ $.ajax(url = queryURL, method = "GET").then(function(local) {
     var localLat = local.coord.lat;
     var uvindexURL2 = "http://api.openweathermap.org/data/2.5/uvi?lat=" + localLat + "&lon=" + localLon + "&appid=f0f4d87763aa343a55935871e0d71f65";
     $.ajax(url = uvindexURL2, method = "GET").then(function(localUV) {
-        var indexUV2 = $("<p>");
+        UVI2 = localUV.value;
+
         indexUV2.attr("id", "localUV"); 
         cityInfo2.append(indexUV2);
-        indexUV2.append("UV index: " + localUV.value);
+        indexUV2.append("UV index: " + UVI2);
+
+        UVcolor2 = $("#localUV");
+        if (UVI2 < 3) {UVcolor2.css("background-color", "green");} 
+        else if (UVI2 < 6) {UVcolor2.css("background-color", "yellow"); UVcolor2.css("color", "black");} 
+        else if (UVI2 < 8) {UVcolor2.css("background-color", "orange");} 
+        else if (UVI2 < 11) {UVcolor2.css("background-color", "red");} 
+        else {UVcolor2.css("background-color", "purple");}    
     });
 });
 
@@ -82,6 +90,35 @@ $.ajax(url = localForecastURL, method = "GET").then(function(localForecast) {
 
 // Function code
 
+// getting local memory storage information about the last searched city
+var lastSearchedCity = JSON.parse(localStorage.getItem("Searched Cities"));
+if (lastSearchedCity !== null && lastSearchedCity !== undefined) {
+    input = lastSearchedCity;
+    clearAndSearch();
+} else {
+    repeatSearch();
+    cityWeather();
+    cityForecast();
+}
+
+// Preparation for a new search
+function clearAndSearch() {
+    newSearch = true;
+    // Resetting all relevant fields
+    $("#cityInfo-1").empty();
+    $("#cityName-1").empty();
+    $("#weatherIcon-1").attr("src", null);
+    $("#weatherIcon-1").attr("alt", null);
+    $("#five-days").empty();
+    // Running the three new-search functions
+    repeatSearch();
+    cityWeather();
+    cityForecast();
+    // Resetting the input field and the newSearch variable
+    newSearch = false;
+    $("#city-search").val("");
+}
+
 // Conditional function for the initial page load versus the new search to be loaded
 function repeatSearch() {
     if (newSearch) {
@@ -92,19 +129,19 @@ function repeatSearch() {
         forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + citySearch + "&units=imperial&appid=f0f4d87763aa343a55935871e0d71f65";
     }
 }
-repeatSearch();
 
 // AJAX request for the current weather at the new city (to remain dynamic)
 // The flow of code is equivalent to the current local weather request above 
 function cityWeather() {
 
     $.ajax(url = weatherURL, method = "GET").then(function(response) {
-                    
         var name = response.name;
         var country = response.sys.country;
         cityName1.text(name + ", " + country);
         //constructing a loop to add search history buttons, unless the city has already been added
-        arrSearched = JSON.parse(localStorage.getItem("Searched Cities")) || [];
+        if (arrSearched.length === 0) {
+            arrSearched.length++;
+        }
         for (var c = 0; c < arrSearched.length; c++) {
             var name2 = arrSearched[c];
             if (name === name2) {break;} 
@@ -114,10 +151,10 @@ function cityWeather() {
                 cityBtn.attr("id", "city-searched");
                 cityBtn.attr("type", "submit");
                 cityBtn.attr("value", name);
-                searchedDiv.append(cityBtn);
-                arrSearched.push(name);
-                localStorage.setItem("Searched Cities", JSON.stringify(arrSearched));}
+                searchedDiv.append(cityBtn);}
         }
+        arrSearched.push(name);
+        localStorage.setItem("Searched Cities", JSON.stringify(arrSearched));
         //getting the correct weather icon to display alongside city name
         var iconURL1 = "http://openweathermap.org/img/wn/" + response.weather[0].icon + ".png";
         weatherIcon1.attr("src", iconURL1); 
@@ -139,14 +176,21 @@ function cityWeather() {
         var lat = response.coord.lat;
         var uvindexURL = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=f0f4d87763aa343a55935871e0d71f65";
         $.ajax(url = uvindexURL, method = "GET").then(function(uvindex) {
-            var indexUV = $("<p>");
+            UVI = uvindex.value;
+
             indexUV.attr("id", "ultraViolet"); 
             cityInfo1.append(indexUV);
-            indexUV.append("UV index: " + uvindex.value);
+            indexUV.text("UV index: " + UVI);           
+
+            UVcolor1 = $("#ultraViolet");
+            if (UVI < 3) {UVcolor1.css("background-color", "green"); UVcolor1.css("color", "white");} 
+            else if (UVI < 6) {UVcolor1.css("background-color", "yellow"); UVcolor1.css("color", "black");} 
+            else if (UVI < 8) {UVcolor1.css("background-color", "orange"); UVcolor1.css("color", "black");} 
+            else if (UVI < 11) {UVcolor1.css("background-color", "red"); UVcolor1.css("color", "white");} 
+            else {UVcolor1.css("background-color", "purple"); UVcolor1.css("color", "white");}
         });
     });
 }
-cityWeather();
 
 // AJAX request for the forecast at the new city location (to remain dynamic)
 // The flow of code is equivalent to the local forecast request above 
@@ -180,47 +224,24 @@ function cityForecast() {
     });
 
 }
-cityForecast();
 
 // Event handling function when the "Search" button is clicked
-// - Clearing the previous search results before the new data is loaded
-// - Running the three search functions again
 $("#search-button").on("click", function(event) {
     event.preventDefault();
-    newSearch = true;
     input = $("#city-search").val();
-    $("#cityInfo-1").empty();
-    $("#cityName-1").empty();
-    $("#weatherIcon-1").attr("src", null);
-    $("#weatherIcon-1").attr("alt", null);
-    $("#five-days").empty();
-    repeatSearch();
-    cityWeather();
-    cityForecast();
-    newSearch = false;
-    $("#city-search").val("");
+    clearAndSearch();
 });
 
-// Event handling function to load the correct weather information
-// when one of the search history buttons is clicked
+// Event handling function when any search history button is clicked
 $("#searched").on("click", "input", function(event) {
     event.preventDefault();
-    newSearch = true;
     input = $(this).val();
-    $("#cityInfo-1").empty();
-    $("#cityName-1").empty();
-    $("#weatherIcon-1").attr("src", null);
-    $("#weatherIcon-1").attr("alt", null);
-    $("#five-days").empty();
-    repeatSearch();
-    cityWeather();
-    cityForecast();
-    newSearch = false;
-    $("#city-search").val("");
+    clearAndSearch();
 });
 
-// Clearing local storage on reload to clear search history
-$(window).on("load", function(){
+$(window).on("unload", function(){
+    var lastSearched = JSON.parse(localStorage.getItem("Searched Cities"));
+    var lastCity = lastSearched[lastSearched.length-1];
     localStorage.clear();
-    $("#city-search").val("");
+    localStorage.setItem("Searched Cities", JSON.stringify(lastCity));
 });

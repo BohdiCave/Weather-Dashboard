@@ -20,9 +20,9 @@ You are welcome to submit any suggestions on improving the functionality or the 
 
 # Screenshots
 
-![Weather Dashboard - Screenshot 1](./assets/weather-screen-1.png)
+![Weather Dashboard - Screenshot 1](./assets/images/weather-screen-1.png)
 
-![Weather Dashboard - Screenshot 2](./assets/weather-screen-2.png)
+![Weather Dashboard - Screenshot 2](./assets/images/weather-screen-2.png)
 
 With history search buttons displayed
-![Weather Dashboard - Screenshot 3](./assets/weather-screen-3.png)
+![Weather Dashboard - Screenshot 3](./assets/images/weather-screen-3.png)
