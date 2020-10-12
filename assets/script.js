@@ -45,7 +45,7 @@ $.ajax(url = queryURL, method = "GET").then(function(local) {
     //getting the UV index data through the request to another API, based on the current JSON data
     var localLon = local.coord.lon;
     var localLat = local.coord.lat;
-    var uvindexURL2 = "http://api.openweathermap.org/data/2.5/uvi?lat=" + localLat + "&lon=" + localLon + "&appid=f0f4d87763aa343a55935871e0d71f65";
+    var uvindexURL2 = "https://api.openweathermap.org/data/2.5/uvi?lat=" + localLat + "&lon=" + localLon + "&appid=f0f4d87763aa343a55935871e0d71f65";
     $.ajax(url = uvindexURL2, method = "GET").then(function(localUV) {
         UVI2 = localUV.value;
 
@@ -76,7 +76,7 @@ $.ajax(url = localForecastURL, method = "GET").then(function(localForecast) {
         var localForecastDate = new Date(localDailyForecast[j].dt * 1000);
         column2.append("<div id='localForeDate'>"+(localForecastDate.getMonth()+1)+"/"+ localForecastDate.getDate()+"/"+ localForecastDate.getFullYear()+"</div>");
         //getting and displaying the correct weather icon for that date
-        var localForecastURL = "http://openweathermap.org/img/wn/" + localDailyForecast[j].weather[0].icon + ".png";
+        var localForecastURL = "https://openweathermap.org/img/wn/" + localDailyForecast[j].weather[0].icon + ".png";
         var localForecastIcon = $("<img>");
         localForecastIcon.attr("src", localForecastURL); 
         localForecastIcon.attr("alt", localDailyForecast[j].weather[0].description);

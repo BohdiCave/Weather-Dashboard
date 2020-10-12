@@ -14,7 +14,7 @@ Search history is accessible via clickable buttons in the header, which can help
 
 ## Credits
 
-As with all the projects featured to date, many thanks to the wonderful educational team of instructors and support staff from University of Pennsylvania's Coding Bootcamp Program, administered in coooperation with Trilogy Educational Services. 
+As with all the projects featured to date, many thanks to the wonderful educational team of instructors and support staff from the [Coding Bootcamp Program](https://bootcamp.sas.upenn.edu/), administered by  University of Pennsylvania's College of Liberal and Professional Studies in collaboration with [Trilogy Education Services](https://www.trilogyed.com/). 
 
 Additional thanks to:
 * [OpenWeatherMap API](https://openweathermap.org/) - for providing access to real-time weather data.
