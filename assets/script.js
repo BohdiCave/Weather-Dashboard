@@ -27,7 +27,7 @@ $.ajax(url = queryURL, method = "GET").then(function(local) {
     var date = new Date(local.dt * 1000); 
     todayDate.append((date.getMonth()+1) + "/" + date.getDate() + "/" + date.getFullYear());
     //getting the correct weather icon based on the API docs and the JSON data
-    var iconURL2 = "http://openweathermap.org/img/wn/" + local.weather[0].icon + ".png";
+    var iconURL2 = "https://openweathermap.org/img/wn/" + local.weather[0].icon + ".png";
     weatherIcon2.attr("src", iconURL2);
     weatherIcon2.attr("alt", local.weather[0].description);
     //getting the current local temperature and humidity from the JSON data 
@@ -156,7 +156,7 @@ function cityWeather() {
         arrSearched.push(name);
         localStorage.setItem("Searched Cities", JSON.stringify(arrSearched));
         //getting the correct weather icon to display alongside city name
-        var iconURL1 = "http://openweathermap.org/img/wn/" + response.weather[0].icon + ".png";
+        var iconURL1 = "https://openweathermap.org/img/wn/" + response.weather[0].icon + ".png";
         weatherIcon1.attr("src", iconURL1); 
         weatherIcon1.attr("alt", response.weather[0].description);
         //getting temperature and humidity
@@ -174,7 +174,7 @@ function cityWeather() {
         //getting UVI data via a separate AJAX request
         var lon = response.coord.lon;
         var lat = response.coord.lat;
-        var uvindexURL = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=f0f4d87763aa343a55935871e0d71f65";
+        var uvindexURL = "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=f0f4d87763aa343a55935871e0d71f65";
         $.ajax(url = uvindexURL, method = "GET").then(function(uvindex) {
             UVI = uvindex.value;
 
@@ -211,7 +211,7 @@ function cityForecast() {
             var forecastDate = new Date(dailyForecast[i].dt * 1000);
             column.append("<div id='foreDate'>"+(forecastDate.getMonth()+1)+"/"+ forecastDate.getDate()+"/"+ forecastDate.getFullYear()+"</div>");
             //getting the correct weather icon for that date
-            var forecastURL = "http://openweathermap.org/img/wn/" + dailyForecast[i].weather[0].icon + ".png";
+            var forecastURL = "https://openweathermap.org/img/wn/" + dailyForecast[i].weather[0].icon + ".png";
             var forecastIcon = $("<img>");
             forecastIcon.attr("src", forecastURL); 
             forecastIcon.attr("alt", dailyForecast[i].weather[0].description);
